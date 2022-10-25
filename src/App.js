@@ -1,23 +1,56 @@
-import logo from './logo.svg';
-import './App.css';
+import { useDispatch, useSelector } from "react-redux";
+import { increaseId, decreaseId } from "./store/content/ContentSlice";
 
 function App() {
+  const content = useSelector((state) => state.content);
+  const dispatch = useDispatch();
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
+    <div>
+      <h1>{content.topic}</h1>
+      <p>{content.description}</p>
+      <div
+        style={{
+          margin: "10px",
+          padding: "10px",
+          textAlign: "center",
+          display: "flex",
+          alignItems: "center",
+        }}
+      >
+        <button
+          style={{
+            marginRight: "15px",
+            width: "50px",
+            height: "40px",
+            padding: "8px",
+          }}
+          onClick={(e) => dispatch(increaseId(e.target.value))}
         >
-          Learn React
-        </a>
-      </header>
+          +
+        </button>
+        <h1
+          style={{
+            padding: "8px",
+            width: "50px",
+            height: "40px",
+          }}
+        >
+          {content.id}
+        </h1>
+        <button
+          style={{
+            padding: "8px",
+            width: "50px",
+            height: "40px",
+          }}
+          onClick={(e) => {
+            console.log(e.target.value);
+            dispatch(decreaseId(e.target.value));
+          }}
+        >
+          -
+        </button>
+      </div>
     </div>
   );
 }
